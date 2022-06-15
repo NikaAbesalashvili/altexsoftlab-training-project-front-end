@@ -1,8 +1,8 @@
-import Form from "./components/Form/Form";
+import Authentication from "./pages/Authentication/Authentication";
 
 const App = () => {
 	return (
-		<Form/>
+		<Authentication />
 	);
 };
 

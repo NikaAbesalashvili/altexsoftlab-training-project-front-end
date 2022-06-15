@@ -12,7 +12,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1rem;
 
     @include u.breakpoint(medium) {
         grid-template-columns: 1fr 1fr;
@@ -29,9 +29,19 @@
     @include u.breakpoint(large) {
 
         .input-field, .register-button, .login-button {
+            padding: .5rem;
+        }
+    }
+
+    @include u.breakpoint(xlarge) {
+        .input-field, .register-button, .login-button {
             padding: 1.1rem;
         }
-        
+
+        .form-header {
+            margin-bottom: 1rem;
+        }
+
     }
 }
 
@@ -41,10 +51,13 @@
 
 .form-header {
     text-align: center;
-    margin-bottom: 2rem;
     font-family: u.$font;
     font-size: 1.5em;
     font-weight: 700;
+}
+
+.error-message {
+    color: red;
 }
 
 .input-field {
@@ -55,6 +68,7 @@
     font-weight: 400;
     color: u.$dark;
     border: 1px solid u.$semiDark;
+    border-radius: 0;
 }
 
 .input-field:focus {
@@ -84,4 +98,3 @@
     color: u.$white;
     background-color: u.$lightCyan;
 }
-
