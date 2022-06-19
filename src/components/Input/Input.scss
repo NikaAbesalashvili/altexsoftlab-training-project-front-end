@@ -1,0 +1,16 @@
+@use '../../scss/util' as u;
+
+.input-field {
+    width: 100%;
+    padding: .9rem;
+    font-size: 1.5em;
+    font-family: u.$font;
+    font-weight: 400;
+    color: u.$dark;
+    border: 1px solid u.$semiDark;
+    border-radius: 0;
+}
+
+.input-field:focus {
+    outline: none;
+}

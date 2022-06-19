@@ -17,8 +17,8 @@
     @include u.breakpoint(medium) {
         grid-template-columns: 1fr 1fr;
         
-        .input-field, .register-button, .login-button {
-            padding: .8rem;
+        .input-field, .button {
+            padding: .6rem;
         }
 
         .span-two-column {
@@ -28,13 +28,13 @@
 
     @include u.breakpoint(large) {
 
-        .input-field, .register-button, .login-button {
-            padding: .5rem;
+        .input-field, .button {
+            padding: .8rem;
         }
     }
 
     @include u.breakpoint(xlarge) {
-        .input-field, .register-button, .login-button {
+        .input-field, .button {
             padding: 1.1rem;
         }
 
@@ -81,20 +81,3 @@
     justify-content: space-between;
 }
 
-.register-button, .login-button {
-    font-family: u.$font;
-    font-size: .9375em;
-    font-weight: 500;
-    line-height: 18.29px;
-    padding: .6rem 2rem;
-    border-radius: .375em;
-}
-
-.register-button {
-    font-weight: 500;
-}
-
-.login-button {
-    color: u.$white;
-    background-color: u.$lightCyan;
-}

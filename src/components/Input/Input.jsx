@@ -1,3 +1,5 @@
+import './Input.scss';
+
 const Input = ({ 
     classN,
     inputType='text',

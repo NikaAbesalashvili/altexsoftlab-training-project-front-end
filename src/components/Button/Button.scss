@@ -1,0 +1,14 @@
+@use '../../scss/util' as u;
+
+.button {
+    padding: 1.2rem 2rem;
+    font-family: u.$font;
+    font-size: .9375em;
+    font-weight: 500;
+    line-height: 18.29px;
+    border-radius: .375rem;
+    background-color: u.$lightCyan;
+    border: none;
+    color: u.$white;
+
+}

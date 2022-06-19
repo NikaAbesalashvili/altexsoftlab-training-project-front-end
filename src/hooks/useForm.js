@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useValidate } from './useValidate';
 
 const initialUserData = {
@@ -16,6 +17,7 @@ export const useForm = () => {
     const [canSubmit, setCanSubmit] = useState(false);
 
     const { formErrors, validate } = useValidate();
+    const navigate = useNavigate();
 
     // Handling authentication for user
     const handleFormSubmit = (event) => {
@@ -33,7 +35,8 @@ export const useForm = () => {
     // useEffect for registering user
     useEffect(() => {
         if(Object.keys(formErrors).length === 0 && canSubmit) {
-            console.log(userData);
+            localStorage.setItem('profile', JSON.stringify(userData));
+            navigate('/search');
         }
     }, [formErrors])
 

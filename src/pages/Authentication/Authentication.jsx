@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../../hooks'
 import './Authentication.scss';
-import { Input } from '../../components';
+import { Input, Button } from '../../components';
 
 const Authentication = () => {
 
@@ -12,6 +14,14 @@ const Authentication = () => {
         handleUserRegistration,
         handleFormSubmit
     } = useForm();
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(localStorage.getItem('profile')) {
+            navigate('/search');
+        }
+    })
 
     return (
         <section className='form-section' >
@@ -75,26 +85,22 @@ const Authentication = () => {
                 </div>
 
                 <div className="buttons">
-                    <button 
-                        className='register-button'
-                        style={{
-                            backgroundColor: `${isRegister ? '#18A0FB' : 'transparent'}`,
-                            border: `${isRegister ? 'none' : '1px solid #18A0FB'}`,
-                            color: `${isRegister ? '#FFF' : '#18A0FB'}`
-                        }}
-                        type='button'
-                        onClick={handleUserRegistration}
-                    >
-                        Register
-                    </button>
+
+                    <Button 
+                        classN='button'
+                        buttonType='button'
+                        isShadowButton={!isRegister}
+                        buttonText='Register'
+                        handleClick={handleUserRegistration}
+                    />
 
                     {!isRegister && (
-                            <button
-                                className='login-button'
-                                type='submit'
-                            >
-                                Login
-                            </button>
+
+                            <Button
+                                classN='button'
+                                buttonType='submit'
+                                buttonText='Login'
+                            />
                         )
                     }
 
