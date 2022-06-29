@@ -1,0 +1,45 @@
+@use '../../scss/util' as u;
+
+main, .search-section {
+    height: 90%;
+} 
+
+.search-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-form {
+    width: clamp(270px, 60%, 950px);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.search-title {
+
+    font-size: 2em;
+    font-family: u.$font;
+    text-align: center;
+    font-weight: 400;
+
+    @include u.breakpoint(medium) {
+        padding-left: 1rem;
+        width: 100%;
+        font-size: 3em;
+        text-align: left;
+    }
+}
+
+.search-components {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+
+    @include u.breakpoint(medium) {
+        flex-direction: row;
+    }
+}

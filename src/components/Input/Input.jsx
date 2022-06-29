@@ -2,11 +2,11 @@ import './Input.scss';
 
 const Input = ({ 
     classN,
-    inputType='text',
+    inputType = 'text',
     inputName,
     inputValue,
     placeholder,
-    additionalStyle={},
+    rounded = false,
     handleInputChange
 }) => {
     return (
@@ -16,7 +16,9 @@ const Input = ({
             placeholder={placeholder}
             name={inputName}
             value={inputValue}
-            style={additionalStyle}
+            style={rounded ? {
+                borderRadius: '.5rem',
+            } : {}}
             onChange={handleInputChange}
         />
     );

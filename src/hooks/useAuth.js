@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { userRegistration, authenticateUser } from '../api/user';
 import { useNavigate } from 'react-router-dom';
 import { useValidate } from './useValidate';
 
@@ -9,36 +10,35 @@ const initialUserData = {
     password: '',
 }
 
-export const useForm = () => {
+export const useAuth = () => {
 
     // State variables for authentication and registration form
     const [isRegister, setIsRegister] = useState(false);
-    const [userData, setUserData] = useState(initialUserData);
+    const [userData, setUserData] = useState(isRegister ? initialUserData : { login: '', password: '' });
     const [canSubmit, setCanSubmit] = useState(false);
 
     const { formErrors, validate } = useValidate();
     const navigate = useNavigate();
 
-    // Handling authentication for user
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        let dataToSend = {};
-        const { email, password } = userData;
-        dataToSend = {
-            email,
-            password
-        };
-
-        console.log(dataToSend);
-    };
 
     // useEffect for registering user
     useEffect(() => {
         if(Object.keys(formErrors).length === 0 && canSubmit) {
-            localStorage.setItem('profile', JSON.stringify(userData));
-            navigate('/search');
+
+            register();
+
         }
     }, [formErrors])
+
+    // Handling authentication for user
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        const { login, password } = userData;
+
+        authenticate();
+
+    };
 
     // Handling registration button behaviour
     const handleUserRegistration = () => {
@@ -58,6 +58,28 @@ export const useForm = () => {
             ...prevData,
             [name]: value,
         }));
+    };
+
+    // Function for handling user authentication request & respnse
+    const authenticate = async () => {
+        const { login, password } = userData;
+        const response = await authenticateUser({ login, password });
+
+        if(response.status === 200) {
+            const { token } = response.data;
+
+            localStorage.setItem('travel-agency-user-token', JSON.stringify(token));
+            navigate('/search');
+        }
+    };
+
+    // Function for handling user registration requset & response
+    const register = async () => {
+        const response = await userRegistration({ ...userData, photo: 'string' });
+        if(response.status === 200) {
+            setIsRegister(false);
+            setUserData({ login: '', password: '' });
+        }
     };
 
     return {

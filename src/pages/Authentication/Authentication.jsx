@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from '../../hooks'
-import './Authentication.scss';
+import { useAuth } from '../../hooks'
 import { Input, Button } from '../../components';
+import './Authentication.scss';
 
 const Authentication = () => {
 
@@ -13,12 +13,12 @@ const Authentication = () => {
         handleInputFieldChange,
         handleUserRegistration,
         handleFormSubmit
-    } = useForm();
+    } = useAuth();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem('profile')) {
+        if(localStorage.getItem('travel-agency-user-token')) {
             navigate('/search');
         }
     })
@@ -62,11 +62,11 @@ const Authentication = () => {
                     
                     <Input
                         classN='input-field span-two-column'
-                        inputType='email'
+                        inputType={isRegister ? 'email' : 'text'}
                         placeholder={isRegister ? 'Email adress' : 'Login'}
-                        inputName='email'
-                        inputValue={userData.email}
-                        additionalStyle={!isRegister ? { borderRadius: '.5rem' } : {}}
+                        inputName={`${isRegister ? 'email' : 'login'}`}
+                        inputValue={isRegister ? userData.email : userData.login}
+                        rounded={!isRegister}
                         handleInputChange={handleInputFieldChange}
                     />
 
@@ -78,7 +78,7 @@ const Authentication = () => {
                         placeholder='Password'
                         inputName='password'
                         inputValue={userData.password}
-                        additionalStyle={!isRegister ? { borderRadius: '.5rem' } : {}}
+                        rounded={!isRegister}
                         handleInputChange={handleInputFieldChange}
                     />
 

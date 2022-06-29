@@ -3,12 +3,16 @@
 .input-field {
     width: 100%;
     padding: .9rem;
-    font-size: 1.5em;
+    font-size: 1em;
     font-family: u.$font;
     font-weight: 400;
     color: u.$dark;
     border: 1px solid u.$semiDark;
     border-radius: 0;
+
+    @include u.breakpoint(medium) {
+        font-size: 1.3em;
+    }
 }
 
 .input-field:focus {
