@@ -8,7 +8,7 @@ main {
     padding: 1.3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 2.3rem;
 
@@ -17,8 +17,13 @@ main {
     }
 }
 
-.profile-picture {
+.image-container {
+    position: relative;
+}
+
+.picture {
     width: 15.625rem;
+    aspect-ratio: 1 / 1;
     cursor: pointer;
 
     @include u.breakpoint(medium) {
@@ -26,8 +31,24 @@ main {
     }
 }
 
-.upload-file-input {
-    display: none;
+.delete-button {
+    padding: .8rem;
+    position: absolute;
+    background-color: transparent;
+    color: red;
+    font-size: 1em;
+    font-family: u.$font;
+    font-weight: 500;
+    top: 1rem;
+    right: 2rem;
+    border: 1px solid red;
+    border-radius: .375rem;
+}
+
+.delete-button:hover {
+    color: #FFF;
+    background-color: red;
+    border: none;
 }
 
 .user-profile-form {
@@ -39,4 +60,43 @@ main {
     @include u.breakpoint(large) {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+.add-apartament-section {
+    padding: 1.3rem;
+}
+
+.add-apartament-title {
+    margin-bottom: 2.6rem;
+    padding-bottom: .8rem;
+    color: u.$lightCyan;
+    font-family: u.$font;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid u.$lightCyan;
+    cursor: pointer;
+}
+
+.icon {
+    margin-left: .5rem;
+}
+
+.apartament-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2.3rem;
+    align-items: center;
+
+    @include u.breakpoint(large) {
+        flex-direction: row;
+    }
+}
+
+.apartament-fields {
+    width: clamp(270px, 60%, 750px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
 }
