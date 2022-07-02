@@ -18,7 +18,7 @@ const Authentication = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem('travel-agency-user-token')) {
+        if(localStorage.getItem('travel-agency-user')) {
             navigate('/search');
         }
     })

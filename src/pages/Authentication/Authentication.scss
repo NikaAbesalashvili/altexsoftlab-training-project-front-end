@@ -21,9 +21,9 @@
             padding: .6rem;
         }
 
-        .span-two-column {
-            grid-column: span 2;
-        }
+        // .span-two-column {
+        //     grid-column: span 2;
+        // }
     }
 
     @include u.breakpoint(large) {

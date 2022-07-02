@@ -1,0 +1,42 @@
+@use '../../scss/util' as u;
+
+main {
+    margin-top: 2rem;
+}
+
+.profile-info-section {
+    padding: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2.3rem;
+
+    @include u.breakpoint(large) {
+        flex-direction: row;
+    }
+}
+
+.profile-picture {
+    width: 15.625rem;
+    cursor: pointer;
+
+    @include u.breakpoint(medium) {
+        width: 19.875rem;
+    }
+}
+
+.upload-file-input {
+    display: none;
+}
+
+.user-profile-form {
+    width: clamp(270px, 60%, 750px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @include u.breakpoint(large) {
+        grid-template-columns: 1fr 1fr;
+    }
+}

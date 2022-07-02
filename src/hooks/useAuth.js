@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { userRegistration, authenticateUser } from '../api/user';
+import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useValidate } from './useValidate';
 
@@ -18,6 +19,7 @@ export const useAuth = () => {
     const [canSubmit, setCanSubmit] = useState(false);
 
     const { formErrors, validate } = useValidate();
+    const { saveUser } = useUser();
     const navigate = useNavigate();
 
 
@@ -33,8 +35,6 @@ export const useAuth = () => {
     // Handling authentication for user
     const handleFormSubmit = (event) => {
         event.preventDefault();
-
-        const { login, password } = userData;
 
         authenticate();
 
@@ -66,9 +66,10 @@ export const useAuth = () => {
         const response = await authenticateUser({ login, password });
 
         if(response.status === 200) {
-            const { token } = response.data;
+            const { token, userId } = response.data;
 
-            localStorage.setItem('travel-agency-user-token', JSON.stringify(token));
+            saveUser({ token, username: login, userId });
+            // localStorage.setItem('travel-agency-user', JSON.stringify({token, username: login}));
             navigate('/search');
         }
     };

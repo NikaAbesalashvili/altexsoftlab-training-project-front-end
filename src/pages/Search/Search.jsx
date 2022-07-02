@@ -1,16 +1,26 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../../hooks';
 import { Input, Button } from '../../components';
 
 import './Search.scss';
 
 const Search = () => {
-    
+
     const {
         location,
         date,
         handleInputFieldChange,
         handleSearchSubmit,
-    } = useSearch()
+    } = useSearch();
+    
+    const naviagte = useNavigate()
+
+    useEffect(() => {
+        if(!localStorage.getItem('travel-agency-user')) {
+            naviagte('/auth');
+        }
+    }, [])
 
     return (
         <main>

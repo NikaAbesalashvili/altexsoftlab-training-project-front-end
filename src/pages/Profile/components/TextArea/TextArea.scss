@@ -1,6 +1,6 @@
-@use '../../scss/util' as u;
+@use '../../../../scss/util' as u;
 
-.input-field {
+.text-area {
     width: 100%;
     padding: .9rem;
     font-size: 1em;
@@ -9,17 +9,19 @@
     color: u.$dark;
     border: 1px solid u.$semiDark;
     border-radius: 0;
+    resize: none;
+    border-radius: .5rem;
 
     @include u.breakpoint(medium) {
         font-size: 1.3em;
     }
 }
 
-.input-field:focus {
+.text-area:focus {
     outline: none;
 }
 
-.span-two-column {
+.span-two {
     @include u.breakpoint(medium) {
         grid-column: span 2
     }
