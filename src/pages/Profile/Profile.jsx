@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useAddApartament, useUserProfileEdit } from '../../hooks';
 import { Input, Button } from '../../components';
 import { TextArea } from './components';

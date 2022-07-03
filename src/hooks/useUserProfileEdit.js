@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUser } from '../context/UserContext';
 import { convertImageToBase64 } from '../helpers'; 
+import { getUserById, updateUserProfile } from '../api/user';
 
 export const useUserProfileEdit = () => {
 
@@ -12,12 +14,20 @@ export const useUserProfileEdit = () => {
         photo: '',
     });
 
+    // Extracting userSave function from user context
+    const { saveUser } = useUser();
+
+    useEffect(() => {
+        fetchUserFromDatabase();
+    }, []);
+
     // Saving profile changes made by user
     const handleUserProfileFormSubmit = (event) => {
         event.preventDefault();
 
         console.log('USER EDITED PROFILE...');
         console.log(userData);
+        updateUser();
     };
 
     // Handling input field changes of user profile
@@ -48,6 +58,29 @@ export const useUserProfileEdit = () => {
             ...prevData,
             photo: ''
         }));
+    };
+
+    const fetchUserFromDatabase = async () => {
+        const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
+        const response = await getUserById(userId)
+        const { data } = response
+        
+        if(data.photo) {
+            setUserData((prevData) => ({
+                ...prevData,
+                photo: data.photo,
+            }));
+        }
+    };
+
+    const updateUser = async () => {
+        const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
+        const response = await updateUserProfile(userId, userData);
+
+        const { data } = response;
+        const localStorageUser = JSON.parse(localStorage.getItem('travel-agency-user'));
+        saveUser({ ...localStorageUser, username: `${data?.firstName}${data?.lastName}` });
+
     };
 
     return {

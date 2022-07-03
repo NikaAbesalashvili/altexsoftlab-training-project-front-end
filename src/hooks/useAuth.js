@@ -76,7 +76,7 @@ export const useAuth = () => {
 
     // Function for handling user registration requset & response
     const register = async () => {
-        const response = await userRegistration({ ...userData, photo: 'string' });
+        const response = await userRegistration({ ...userData, photo: '' });
         if(response.status === 200) {
             setIsRegister(false);
             setUserData({ login: '', password: '' });
