@@ -3,6 +3,8 @@ import './Input.scss';
 const Input = ({ 
     classN,
     inputType = 'text',
+    max = null,
+    min = null,
     inputName,
     inputValue,
     placeholder,
@@ -13,6 +15,8 @@ const Input = ({
         <input
             className={classN}
             type={inputType}
+            max={max}
+            min={min}
             placeholder={placeholder}
             name={inputName}
             value={inputValue}

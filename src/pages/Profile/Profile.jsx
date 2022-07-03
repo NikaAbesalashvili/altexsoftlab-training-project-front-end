@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAddApartament, useUserProfileEdit } from '../../hooks';
 import { Input, Button } from '../../components';
 import { TextArea } from './components';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi'
@@ -7,98 +8,29 @@ import './Profile.scss';
 
 const Profile = () => {
 
+    // Default icons for user and apartament for new users
     const profileAvatar = require('../../images/profile-avatar.png');
     const apartamentIcon = require('../../images/apartament-icon.png');
 
-    const [userData, setUserInfo] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        aboutUser: '',
-        photo: '',
-    });
+    // Extractiog user data and functions for editing user profile from useUserProfileEdit
+    const {
+        userData,
+        handleUserProfileFormSubmit,
+        handleUserInputChange,
+        handleUserProfilePictureUpload,
+        handleUserProfilePictureDelete,
+    } = useUserProfileEdit();
 
-    const [userApartamentData, setUserApartamentData] = useState({
-        city: '',
-        address: '',
-        distanceToCenter: '',
-        maxNumberOfGuests: '',
-        apartamentDescription: '',
-        apartamentPhoto: '',
-    });
-
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-
-        console.log('USER MADE CHANGES');
-        console.log(userData);
-    };
-
-    const handleChange = (event) => {
-
-        const { name, value } = event.target;
-
-        setUserInfo((prevInfo) => ({
-            ...prevInfo,
-            [name]: value,
-        }));
-    };
-
-    const convertImageToBase64 = async (imageFile) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            
-            fileReader.readAsDataURL(imageFile);
-
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-            
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-
-        });
-    };
-
-    const handleUploadPhoto = async (event) => {
-
-        const image = event.target.files[0];
-        const imageBase64 = await convertImageToBase64(image);
-
-        setUserInfo((prevInfo) => ({
-            ...prevInfo,
-            photo: imageBase64,
-        }));
-    };
-
-    const handleApartamentPhotoupload = async (event) => {
-        const image = event.target.files[0];
-        const imageBase64 = await convertImageToBase64(image);
-
-        setUserApartamentData((prevData) => ({
-            ...prevData,
-            apartamentPhoto: imageBase64,
-        }));
-    };
-
-    const handleApartamentInputFieldChange = (event) => {
-        const { name, value } = event.target;
-
-        setUserApartamentData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
-    const handleApartamentDataSubmit = (event) => {
-        event.preventDefault();
-
-        console.log('USER SUBMITED APARTAMENT DATA');
-        console.log(userApartamentData);
-    };
+    // Extracting apartament data and functions, for adding new apartament, from useAddApartament
+    const {
+        userApartamentData,
+        isExpanded,
+        toggleApartamentExpand,
+        handleApartamentDataSubmit,
+        handleApartamentInputFieldChange,
+        handleApartamentImageChoose,
+        handleApartamentImageDelete,
+    } = useAddApartament();
 
     return (
         <main>
@@ -109,24 +41,24 @@ const Profile = () => {
                         <img className='picture' src={userData.photo} alt="user-photo" />
                         <button
                             className='delete-button'
-                            onClick={() => setUserInfo((prevInfo) => ({ ...prevInfo, photo: '' }))}
+                            onClick={handleUserProfilePictureDelete}
                         >
                             Delete <AiFillDelete className='icon' />
                         </button>
                     </div>
-                ): (
+                ) : (
 
                     <label htmlFor="profile-photo-input" >
 
                         <img className='picture' src={profileAvatar} alt="profile-picture" />
-                        <input onChange={handleUploadPhoto} type="file" name='photo' id='profile-photo-input' style={{ display: 'none' }} />
+                        <input onChange={handleUserProfilePictureUpload} type="file" name='photo' id='profile-photo-input' style={{ display: 'none' }} />
                     </label>
 
                 )}
                 
                 <form
                     className='user-profile-form'
-                    onSubmit={handleFormSubmit}
+                    onSubmit={handleUserProfileFormSubmit}
                 >
                     <Input
                         classN='input-field'
@@ -135,7 +67,7 @@ const Profile = () => {
                         inputName='firstName'
                         inputValue={userData.firstName}
                         rounded={true}
-                        handleInputChange={handleChange}
+                        handleInputChange={handleUserInputChange}
                     />
 
                     <Input
@@ -145,7 +77,7 @@ const Profile = () => {
                         inputName='lastName'
                         inputValue={userData.lastName}
                         rounded={true}
-                        handleInputChange={handleChange}
+                        handleInputChange={handleUserInputChange}
                     />
 
                     <Input
@@ -155,14 +87,14 @@ const Profile = () => {
                         inputName='email'
                         inputValue={userData.email}
                         rounded={true}
-                        handleInputChange={handleChange}
+                        handleInputChange={handleUserInputChange}
                     />
                     <div className='span-two-column' >
                         <TextArea
                             placeholder='Something about yourself'
-                            textAreaName='aboutUser'
-                            textAreaValue={userData.aboutUser}
-                            handleTextAreaCHange={handleChange}
+                            textAreaName='description'
+                            textAreaValue={userData.description}
+                            handleTextAreaCHange={handleUserInputChange}
                         />
                     </div>
 
@@ -177,7 +109,7 @@ const Profile = () => {
             <section className="add-apartament-section">
                 <h2
                     className='add-apartament-title'
-                    onClick={() => setIsExpanded((prevState) => !prevState)}
+                    onClick={toggleApartamentExpand}
                 >
                     Add an appartament {isExpanded ? <BiUpArrow className='icon' /> : <BiDownArrow className='icon' />}
                 </h2>
@@ -205,15 +137,29 @@ const Profile = () => {
                                 classN='input-field'
                                 placeholder='Distance to center'
                                 inputType='number'
+                                max={10}
+                                min={0}
                                 inputName='distanceToCenter'
                                 inputValue={userApartamentData.distanceToCenter}
                                 rounded={true}
                                 handleInputChange={handleApartamentInputFieldChange}
                             />
+
+                            <Input
+                                classN='input-field'
+                                placeholder='From - to'
+                                inputName='date'
+                                inputValue={userApartamentData.date}
+                                rounded={true}
+                                handleInputChange={handleApartamentInputFieldChange}
+                            />
+
                             <Input
                                 classN='input-field'
                                 placeholder='Max number of guests'
                                 inputType='number'
+                                max={10}
+                                min={1}
                                 inputName='maxNumberOfGuests'
                                 inputValue={userApartamentData.maxNumberOfGuests}
                                 rounded={true}
@@ -234,12 +180,12 @@ const Profile = () => {
                             />
                         </div>
 
-                        {userApartamentData?.apartamentPhoto ? (
+                        {userApartamentData?.imageBase64 ? (
                             <div className="image-container">
-                                <img className='picture' src={userApartamentData.apartamentPhoto} alt="apartament-photo" />
+                                <img className='picture' src={userApartamentData.imageBase64} alt="apartament-photo" />
                                 <button
                                     className='delete-button'
-                                    onClick={() => setUserApartamentData((prevData) => ({ ...prevData, apartamentPhoto: '' }))}
+                                    onClick={handleApartamentImageDelete}
                                 >
                                     Delete <AiFillDelete className='icon' />
                                 </button>
@@ -249,7 +195,7 @@ const Profile = () => {
                             <label htmlFor="apartament-photo" >
 
                                 <img className='picture' src={apartamentIcon} alt="profile-picture" />
-                                <input onChange={handleApartamentPhotoupload} type="file" name='apartamentPhoto' id='apartament-photo' style={{ display: 'none' }} />
+                                <input onChange={handleApartamentImageChoose} type="file" name='apartamentPhoto' id='apartament-photo' style={{ display: 'none' }} />
                             </label>
 
                         )}
