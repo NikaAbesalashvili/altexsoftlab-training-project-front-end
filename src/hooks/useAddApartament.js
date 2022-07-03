@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { convertImageToBase64 } from '../helpers';
+import { getApartment, addApartment, updateApartment } from '../api';
 
 export const useAddApartament = () => {
 
@@ -26,7 +27,7 @@ export const useAddApartament = () => {
     const handleApartamentDataSubmit = (event) => {
         event.preventDefault();
 
-        console.log('USER ADDED APARTAMENT');
+        saveApartament();
     };
 
     // Handling apartament input fields change
@@ -58,6 +59,26 @@ export const useAddApartament = () => {
             ...prevData,
             imageBase64: '',
         }));
+    };
+
+    const saveApartament = async () => {
+        const {
+            city,
+            address,
+            distanceToCenter,
+            date,
+            maxNumberOfGuests: bedsNumber,
+            apartamentDescription,
+            imageBase64,
+        } = userApartamentData;
+
+        const dateSplit = date.split('-');
+        const from = dateSplit[0];
+        const to = dateSplit[1];
+
+        const response = await addApartment({ city, address, distanceToCenter, bedsNumber, apartamentDescription, imageBase64, from, to });
+
+        console.log(response);
     };
 
     return {

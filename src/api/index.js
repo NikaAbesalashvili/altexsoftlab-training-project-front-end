@@ -12,7 +12,14 @@ API.interceptors.request.use((request) => {
     return request;
 });
 
+// User Routes
 export const userRegistration = (userData) => API.post('/User/RegisterUser', userData);
 export const authenticateUser = (userData) => API.post('/Authentication/Authenticate', userData);
 export const getUserById = (userId) => API.get(`/User/GetById/${userId}`);
 export const updateUserProfile = (userId, userData) => API.put(`/User/${userId}`, userData);
+
+// Apartment routes
+export const getApartment = (userId) => API.get(`/Apartment/${userId}`);
+export const addApartment = (apartamentData) => API.post('/Apartment/AddApartment', apartamentData);
+export const updateApartment = (userId, apartamentData) => API.put(`/Apartment/UpdateApartment/${userId}`, apartamentData);
+

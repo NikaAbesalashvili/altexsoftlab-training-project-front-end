@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { userRegistration, authenticateUser } from '../api/user';
+import { userRegistration, authenticateUser } from '../api';
 import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useValidate } from './useValidate';

@@ -3,13 +3,11 @@ import { Input, Button } from '../../components';
 import { TextArea } from './components';
 import { BiDownArrow, BiUpArrow } from 'react-icons/bi'
 import { AiFillDelete } from 'react-icons/ai';
+import profileAvatar from '../../images/profile-avatar.png';
+import apartamentIcon from '../../images/apartament-icon.png'
 import './Profile.scss';
 
 const Profile = () => {
-
-    // Default icons for user and apartament for new users
-    const profileAvatar = require('../../images/profile-avatar.png');
-    const apartamentIcon = require('../../images/apartament-icon.png');
 
     // Extractiog user data and functions for editing user profile from useUserProfileEdit
     const {
