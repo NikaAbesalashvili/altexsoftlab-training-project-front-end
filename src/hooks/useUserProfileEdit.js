@@ -7,7 +7,6 @@ export const useUserProfileEdit = () => {
 
     // state for user user data
     const [userData, setUserData] = useState({
-
         firstName: '',
         lastName: '',
         email: '',

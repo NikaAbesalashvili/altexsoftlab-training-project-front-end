@@ -75,8 +75,12 @@ export const useAddApartament = () => {
 
         const dataToSend = getApartmentData(userApartamentData);
 
-        await addApartment(dataToSend);
+        const response = await addApartment(dataToSend);
+        const { status } = response;
 
+        if(status === 200) {
+            setApartmentExists(true);
+        }
     };
 
     const handleApartmentUpdate = async () => {
@@ -84,11 +88,8 @@ export const useAddApartament = () => {
         
         const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
 
-        console.log(userId);
-
-        const response = await updateApartment(userId, apartmentData);
+        await updateApartment(userId, apartmentData);
         
-        console.log(response);
     };
 
     const loadApartment = async () => {
@@ -104,7 +105,7 @@ export const useAddApartament = () => {
                 ...serverDataForApartment,
             }));
 
-            setApartmentExists((prevState) => !prevState);
+            setApartmentExists(true);
 
         }
 
