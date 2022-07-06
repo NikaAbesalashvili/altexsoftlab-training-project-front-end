@@ -47,6 +47,7 @@ nav {
 
 
     @include u.breakpoint(large) {
+        margin-bottom: 0;
         margin-right: 2.3rem;
         color: u.$lightCyan;
         background-color: u.$semiGrey;

@@ -15,6 +15,8 @@ export const useAddApartament = () => {
         imageBase64: '',
     });
 
+    const [apartmentExists, setApartmentExists] = useState(false);
+
     useEffect(() => {
         loadApartment();
     }, [])
@@ -31,7 +33,11 @@ export const useAddApartament = () => {
     const handleApartamentDataSubmit = (event) => {
         event.preventDefault();
 
-        saveApartament();
+        if(apartmentExists) {
+            handleApartmentUpdate();
+        } else {
+            uploadApartmentToDatabase();
+        }
     };
 
     // Handling apartament input fields change
@@ -65,12 +71,24 @@ export const useAddApartament = () => {
         }));
     };
 
-    const saveApartament = async () => {
+    const uploadApartmentToDatabase = async () => {
 
         const dataToSend = getApartmentData(userApartamentData);
 
         await addApartment(dataToSend);
 
+    };
+
+    const handleApartmentUpdate = async () => {
+        const apartmentData = getApartmentData(userApartamentData);
+        
+        const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
+
+        console.log(userId);
+
+        const response = await updateApartment(userId, apartmentData);
+        
+        console.log(response);
     };
 
     const loadApartment = async () => {
@@ -85,6 +103,9 @@ export const useAddApartament = () => {
                 ...prevData,
                 ...serverDataForApartment,
             }));
+
+            setApartmentExists((prevState) => !prevState);
+
         }
 
     };
