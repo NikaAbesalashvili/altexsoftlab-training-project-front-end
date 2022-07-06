@@ -24,6 +24,11 @@ nav {
     font-family: u.$font;
     font-size: 1.0625em;
     font-weight: 500;
+
+    @include u.breakpoint(large) {
+        margin-bottom: 0;
+    }
+
 }
 
 .logout-button {
@@ -34,6 +39,7 @@ nav {
 
 .cabinet-button {
     padding: .5rem 2rem;
+    margin-bottom: 1rem;
     font-family: u.$font;
     background-color: transparent;
     color: #FFF;

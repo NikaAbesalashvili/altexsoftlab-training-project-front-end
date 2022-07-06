@@ -62,11 +62,7 @@ export const useUserProfileEdit = () => {
         const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
         const response = await getUserById(userId)
         const { data } = response;
-        const { apartament } = data;
         
-        const localStorageData = JSON.parse(localStorage.getItem('travel-agency-user'));
-        saveUser({ ...localStorageData, apartament })
-
 
         setUserData((prevData) => ({
             ...prevData,

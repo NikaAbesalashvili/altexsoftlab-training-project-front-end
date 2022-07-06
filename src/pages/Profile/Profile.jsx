@@ -164,17 +164,18 @@ const Profile = () => {
                             />
                             <TextArea
                                 placeholder='Description'
-                                textAreaName='apartamentDescription'
-                                textAreaValue={userApartamentData.apartamentDescription}
+                                textAreaName='description'
+                                textAreaValue={userApartamentData.description}
                                 handleTextAreaCHange={handleApartamentInputFieldChange}
                             />
-
+                    
                             <Button
                                 classN='button'
                                 buttonType='submit'
                                 isShadowButton={false}
                                 buttonText='Save all changes'
                             />
+                            
                         </div>
 
                         {userApartamentData?.imageBase64 ? (

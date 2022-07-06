@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { convertImageToBase64 } from '../helpers';
+import { useState, useEffect } from "react";
+import { convertImageToBase64, getApartmentData, destructureApartmentDataFromServer } from '../helpers';
 import { getApartment, addApartment, updateApartment } from '../api';
 
 export const useAddApartament = () => {
@@ -11,9 +11,13 @@ export const useAddApartament = () => {
         distanceToCenter: '',
         date: '',
         maxNumberOfGuests: '',
-        apartamentDescription: '',
+        description: '',
         imageBase64: '',
     });
+
+    useEffect(() => {
+        loadApartment();
+    }, [])
     
     // State for expanding apartament section
     const [isExpanded, setIsExpanded] = useState(false);
@@ -62,23 +66,27 @@ export const useAddApartament = () => {
     };
 
     const saveApartament = async () => {
-        const {
-            city,
-            address,
-            distanceToCenter,
-            date,
-            maxNumberOfGuests: bedsNumber,
-            apartamentDescription,
-            imageBase64,
-        } = userApartamentData;
 
-        const dateSplit = date.split('-');
-        const from = dateSplit[0];
-        const to = dateSplit[1];
+        const dataToSend = getApartmentData(userApartamentData);
 
-        const response = await addApartment({ city, address, distanceToCenter, bedsNumber, apartamentDescription, imageBase64, from, to });
+        await addApartment(dataToSend);
 
-        console.log(response);
+    };
+
+    const loadApartment = async () => {
+        const { userId } = JSON.parse(localStorage.getItem('travel-agency-user'));
+
+        const response = await  getApartment(userId);
+        const { data } = response;
+
+        if(data) {
+            const serverDataForApartment = destructureApartmentDataFromServer(data);
+            setUserApartamentData((prevData) => ({
+                ...prevData,
+                ...serverDataForApartment,
+            }));
+        }
+
     };
 
     return {
