@@ -22,4 +22,4 @@ export const updateUserProfile = (userId, userData) => API.put(`/User/${userId}`
 export const getApartment = (userId) => API.get(`/Apartment/${userId}`);
 export const addApartment = (apartamentData) => API.post('/Apartment/AddApartment', apartamentData);
 export const updateApartment = (userId, apartamentData) => API.put(`/Apartment/UpdateApartment/${userId}`, apartamentData);
-
+export const searchApartment = (apartmentData) => API.post('/Apartment/SearchApartment', apartmentData);

@@ -8,8 +8,7 @@ import './Search.scss';
 const Search = () => {
 
     const {
-        location,
-        date,
+        locationData,
         handleInputFieldChange,
         handleSearchSubmit,
     } = useSearch();
@@ -35,8 +34,8 @@ const Search = () => {
                         <Input
                             classN='input-field'
                             placeholder='Search location'
-                            inputName='location'
-                            inputValue={location}
+                            inputName='city'
+                            inputValue={locationData.city}
                             rounded={true}
                             handleInputChange={handleInputFieldChange}
                         />
@@ -44,7 +43,7 @@ const Search = () => {
                             classN='input-field'
                             placeholder='Check in - Check out'
                             inputName='date'
-                            inputValue={date}
+                            inputValue={locationData.date}
                             inputType='text'
                             rounded={true}
                             handleInputChange={handleInputFieldChange}

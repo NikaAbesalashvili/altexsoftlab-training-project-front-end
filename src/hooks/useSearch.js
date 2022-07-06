@@ -1,9 +1,11 @@
+import axios from "axios";
 import { useState } from "react";
+import { searchApartment } from '../api';
 
 export const useSearch = () => {
     
-    const [{ location, date }, setLocationData] = useState({
-        location: '',
+    const [locationData, setLocationData] = useState({
+        city: '',
         date: '',
     });
 
@@ -18,20 +20,27 @@ export const useSearch = () => {
     const handleSearchSubmit = (event) => {
         event.preventDefault();
 
+        const { city, date } = locationData
+        
         const dates = date.split('-');
         const dataToSend = {
-            location,
+            city,
             from: dates[0],
             to: dates[1],
         }
 
-        console.log('SEARCHING LOCATION...');
         console.log(dataToSend);
+
+        searchAvailableApartments(dataToSend);
+    };
+
+    const searchAvailableApartments = async (apartmentData) => {
+        const response = await searchApartment(apartmentData)
+        console.log(response);
     };
 
     return {
-        location,
-        date,
+        locationData,
         handleInputFieldChange,
         handleSearchSubmit,
     }
