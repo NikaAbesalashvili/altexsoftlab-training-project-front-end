@@ -9,6 +9,8 @@ export const useSearch = () => {
         date: '',
     });
 
+    const [apartments, setApartments] = useState([]);
+
     const handleInputFieldChange = (event) => {
         const { name, value } = event.target;
         setLocationData((prevData) => ({
@@ -29,18 +31,20 @@ export const useSearch = () => {
             to: dates[1],
         }
 
-        console.log(dataToSend);
-
         searchAvailableApartments(dataToSend);
     };
 
     const searchAvailableApartments = async (apartmentData) => {
         const response = await searchApartment(apartmentData)
-        console.log(response);
+
+        const { data } = response;
+
+        setApartments((prevData) => ([...prevData, ...data]));
     };
 
     return {
         locationData,
+        apartments,
         handleInputFieldChange,
         handleSearchSubmit,
     }

@@ -1,0 +1,15 @@
+@use '../../scss/util' as u;
+
+.apartments-section {
+    margin-inline: auto;
+    width: clamp(270px, 60%, 950px);
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 1.3rem;
+
+    @include u.breakpoint(large) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}

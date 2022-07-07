@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../../hooks';
-import { Input, Button } from '../../components';
+import { Input, Button, Apartments } from '../../components';
 
 import './Search.scss';
 
@@ -9,6 +9,7 @@ const Search = () => {
 
     const {
         locationData,
+        apartments,
         handleInputFieldChange,
         handleSearchSubmit,
     } = useSearch();
@@ -57,6 +58,7 @@ const Search = () => {
                     </div>
                 </form>
             </section>
+            {apartments?.length > 0 && <Apartments apartments={apartments} />}
         </main>
     );
 };

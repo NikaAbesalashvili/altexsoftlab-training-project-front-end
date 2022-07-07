@@ -45,7 +45,7 @@ const Navbar = () => {
                         <ul className="navbar-links">
                             <li className="list-item"><Link className='nav-link' to='/profile' >Profile</Link></li>
                             <li className="list-item"><Link className='nav-link' to='/guests' >My guests</Link></li>
-                            <li className="list-item"><Link className='nav-link' to='bookings' >My Bookings</Link></li>
+                            <li className="list-item"><Link className='nav-link' to='/bookings' >My Bookings</Link></li>
                         </ul>
                     )}
                     <button

@@ -1,8 +1,9 @@
 @use '../../scss/util' as u;
 
-main, .search-section {
-    height: 90%;
-} 
+main {
+    display: flex;
+    flex-direction: column;
+}
 
 .search-section {
     display: flex;
@@ -17,6 +18,7 @@ main, .search-section {
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    margin-bottom: 2.3rem;
 }
 
 .search-title {

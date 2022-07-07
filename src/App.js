@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components';
-import { UserProvider, useUser } from './context/UserContext';
-import Authentication from "./pages/Authentication/Authentication";
-import Profile from './pages/Profile/Profile';
-import Search from './pages/Search/Search';
+import { UserProvider } from './context/UserContext';
+import { Authentication, Profile, Search, Bookings, Guests } from './pages';
 
 const App = () => {
 
@@ -16,6 +14,8 @@ const App = () => {
 					<Route path='/auth' element={<Authentication />} />
 					<Route path='/search' element={<Search />} />
 					<Route path='/profile' element={<Profile />} />
+					<Route path='/guests' element={<Guests />} />
+					<Route path='/bookings' element={<Bookings />} />
 				</Routes>
 			</UserProvider>
 		</BrowserRouter>

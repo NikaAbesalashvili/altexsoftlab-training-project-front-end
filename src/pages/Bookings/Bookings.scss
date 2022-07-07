@@ -1,0 +1,87 @@
+@use '../../scss/util' as u;
+
+.booking-section {
+    margin-top: 3.9rem;
+    margin-inline: auto;
+    width: clamp(270px, 60%, 950px);
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 1.3rem;
+
+    @include u.breakpoint(large) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.booking-card {
+    padding: 1.3rem;
+    margin-bottom: 1.3rem;
+    background-color: rgb(209, 209, 209);
+    border-radius: 1rem;
+    display: flex;
+    gap: 1.3rem;
+    flex-direction: column;
+    align-items: center;
+
+    @include u.breakpoint(large) {
+        align-items: stretch;
+    }
+}
+
+.apartment-photo {
+    margin-bottom: 2.6rem;
+    width: 15.625rem;
+    border-radius: 1.3rem;
+    aspect-ratio: 2 / 1.5;
+    cursor: pointer;
+
+    @include u.breakpoint(medium) {
+        width: 19.875rem;
+    }
+}
+.apartment-address,
+.apartment-info,
+.description,
+.booking-date,
+.status {
+    font-family: u.$font;
+    text-align: center;
+
+    @include u.breakpoint(large) {
+        text-align: left;
+    }
+}
+
+.apartment-address {
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+.apartment-info {
+    font-weight: 1.125em;
+    font-weight: 500;
+}
+
+.booking-date, .description, .status {
+    font-weight: 400;
+    font-size: 1.125em;
+}
+
+.card-bottom {
+    display: flex;
+    flex-direction: column;
+
+    @include u.breakpoint(large) {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.accepted {
+    color: #00b33c;
+}
+
+.declined {
+    color: red;
+}
